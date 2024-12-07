@@ -1,11 +1,11 @@
 <script>
 // @ts-nocheck
 
-    let counter = 1; // Página inicial
-    let characters = []; // Array de personajes
-    let loading = true; // Indicador de carga
-    let error = null; // Error en la carga
-  
+    let counter = 1;
+    let characters = [];
+    let loading = true; 
+    let error = null; 
+    import Personajes from "./personajes.svelte";
     async function loadCharacters(page) {
       loading = true;
       error = null;
@@ -23,16 +23,13 @@
       }
     }
   
-    // Inicializar carga de personajes
     loadCharacters(counter);
   
-    // Función para avanzar de página
     const handleNext = () => {
       counter++;
       loadCharacters(counter);
     };
   
-    // Función para retroceder de página
     const handlePrevious = () => {
       if (counter > 1) {
         counter--;
@@ -67,14 +64,6 @@
       justify-content: center;
       margin: 0;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      font-size: 20px;
-      margin: 5px 0;
-    }
   </style>
   
   <div class="container">
@@ -89,11 +78,9 @@
   {#if loading}
     <p>Cargando personajes...</p>
   {:else if characters.length > 0}
-    <ul>
       {#each characters as character}
-        <li>{character.name}</li>
+        <Personajes name={character.name} ki={character.ki} maxKi={character.maxKi} race={character.race}/>
       {/each}
-    </ul>
   {:else}
     <p>No hay personajes para mostrar.</p>
   {/if}
